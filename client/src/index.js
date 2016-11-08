@@ -4,10 +4,9 @@ import store from './store.js';
 import TodoContainer from './containers/todoContainer';
 import { Provider } from 'react-redux';
 
-
 render(
-  <Provider store={store}>   
-    <TodoContainer />
-    </Provider>,
+  <Provider store={store}>
+    <TodoContainer />    
+  </Provider>,
   document.getElementById('app')
 );
