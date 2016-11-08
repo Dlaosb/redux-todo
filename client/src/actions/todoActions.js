@@ -21,7 +21,7 @@ export function deleteTaskActionCreator(index) {
   }
 } 
 
-export function markCompletedCreator(index) {
+export function markCompletedActionCreator(index) {
   return {
     type: types.MARK_COMPLETED,
     payload: index
