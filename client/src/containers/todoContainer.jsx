@@ -5,7 +5,6 @@ import * as todoActionCreators from '../actions/todoActions';
 import TodoHeader from '../components/TodoHeader';
 import TodoList from '../components/TodoList';
 
-
 class TodoContainer extends Component {
   constructor() {
     super();
@@ -13,6 +12,7 @@ class TodoContainer extends Component {
     this.addTask = this.addTask.bind(this);
     this.keydown = this.keydown.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.markTask = this.markTask.bind(this);
   }
 
   handleInput(e) {
@@ -29,8 +29,13 @@ class TodoContainer extends Component {
   }
 
   keydown(e) {
-    console.log('keydown');
+   // console.log('keydown');
     // e.target.value = '';
+  }
+
+  markTask(index, e) {
+    //e.preventDefault(); Don't need to prevent default all the time
+   e.target.className = e.target.className === 'done' ? '' : 'done';
   }
 
   deleteTask(index, e) {
@@ -41,10 +46,11 @@ class TodoContainer extends Component {
   // }
 
   render() {
-    console.log('this in render', this);
+   // console.log('this in render', this);
     return <div>
       <TodoHeader handleInput={this.handleInput} addTask={this.addTask} keydown={this.keydown} />
-      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
+      <TodoList markTask={this.markTask} taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
+
     </div>
   }
 }

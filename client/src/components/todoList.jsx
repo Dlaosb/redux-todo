@@ -2,9 +2,9 @@ import React from 'react';
 
 const TodoList = (props) => {
   const tasks = props.taskArray.map((task, index) => {
-    return  <div key={index}>
+    return  <div className='' onClick={props.markTask.bind(null, index)} key={index} >
               {task}
-              <button onClick={props.deleteTask.bind(null, index)}></button>
+              <button onClick={props.deleteTask.bind(null, index)}>Delete</button>
             </div>
   });
 
@@ -14,3 +14,4 @@ const TodoList = (props) => {
 };
 
 export default TodoList;
+
