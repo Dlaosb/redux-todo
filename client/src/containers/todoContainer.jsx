@@ -9,28 +9,25 @@ import TodoList from '../components/TodoList';
 class TodoContainer extends Component {
   constructor() {
     super();
-    this.handleInput = this.handleInput.bind(this);
-    this.addTask = this.addTask.bind(this);
     this.keydown = this.keydown.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-  }
-
-  handleInput(e) {
-    this.props.updateInputActionCreator(e.target.value);
-  }
-
-  addTask(e) {
-    e.preventDefault();
-
-    if (this.props.todo.taskName !== '') {
-      document.getElementById('taskName').value = '';
-      this.props.addTaskActionCreator(this.props.todo.taskName);
-    }
+    this.submit = this.submit.bind(this);
   }
 
   keydown(e) {
-    console.log('keydown');
-    // e.target.value = '';
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.target.value !== '') {
+        e.target.value = '';
+        this.props.addTaskActionCreator(this.props.todo.taskName);
+      }
+    } else {
+      this.props.updateInputActionCreator(e.target.value);
+    }
+  }
+
+  submit(e) {
+    
   }
 
   deleteTask(index, e) {
@@ -43,7 +40,7 @@ class TodoContainer extends Component {
   render() {
     console.log('this in render', this);
     return <div>
-      <TodoHeader handleInput={this.handleInput} addTask={this.addTask} keydown={this.keydown} />
+      <TodoHeader keydown={this.keydown} submit={this.submit} />
       <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
     </div>
   }
@@ -60,8 +57,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
 
-// modify input event handlers to use onKeyDown; keydown checks key='Enter' and calls methods to call the actionCreators
-// proper way to clear the input box? either access the DOM element by id, or use e.target.value on a keydown event
-// line 46 -> proper way to pass down pieces of state (taskArray)?
-// line 27 -> proper way to pass the taskName? (use the state value or grab the value of the input DOM element)
-// modify todoReducers to use object destructuring instead of Object.assign, and use a single line of code for return statements; best practice?
+// next feature: add a submit button to add a task
+// next feature: allow the user to change a task status to 'done' (crossed out)
+// next feature: user can only remove an item if the task is done (the button only shows for completed tasks)

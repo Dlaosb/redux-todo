@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 const AddTodo = (props) => {
-  return  <form onSubmit={props.addTask}>
-            <input id="taskName" type='text' onChange={props.handleInput} onKeyDown={props.keydown} />
+  return  <form>
+            <input id="taskName" type='text' onKeyDown={props.keydown} />
+            <button onClick={props.submit} >Add Task</button>
           </form>
 };
 
