@@ -9,12 +9,13 @@ import TodoList from '../components/TodoList';
 class TodoContainer extends Component {
   constructor() {
     super();
-    this.keydown = this.keydown.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+    this.submitTask = this.submitTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.submit = this.submit.bind(this);
+    this.submitTask = this.submitTask.bind(this);
   }
 
-  keydown(e) {
+  inputChange(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (e.target.value !== '') {
@@ -26,8 +27,8 @@ class TodoContainer extends Component {
     }
   }
 
-  submit(e) {
-    
+  submitTask() {
+    this.props.addTaskActionCreator(this.props.todo.taskName);
   }
 
   deleteTask(index, e) {
@@ -40,7 +41,7 @@ class TodoContainer extends Component {
   render() {
     console.log('this in render', this);
     return <div>
-      <TodoHeader keydown={this.keydown} submit={this.submit} />
+      <TodoHeader inputChange={this.inputChange} submitTask={this.submitTask} />
       <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
     </div>
   }
@@ -56,6 +57,9 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
+
+// update state taskName with both todo.taskName and this.refs.taskName
+// move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?)
 
 // next feature: add a submit button to add a task
 // next feature: allow the user to change a task status to 'done' (crossed out)
