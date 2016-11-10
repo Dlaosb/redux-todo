@@ -3,8 +3,9 @@ import AddTodo from './AddTodo.jsx';
 
 const TodoHeader = (props) => {
   return  <div>
-            <h1> This is a Redux Todo App!! </h1>
-            <AddTodo markTask={props.markTask} handleInput={props.handleInput} addTask={props.addTask} keydown={props.keydown} />            
+            <h1> TODO REDUX </h1>
+            <AddTodo inputChange={props.inputChange} submitTask={props.submitTask} />
+            <button onClick={props.toggleCompletedView}>View Completed Tasks Only</button>          
           </div>
 };
 
