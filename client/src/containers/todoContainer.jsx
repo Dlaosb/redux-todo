@@ -64,6 +64,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
 // move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?) => best practice?
 
-// next feature: allow the user to change a task status to 'done' (crossed out)
-// next feature: user can only remove an item if the task is done (the button only shows for completed tasks)
 // next feature: sort completed tasks
