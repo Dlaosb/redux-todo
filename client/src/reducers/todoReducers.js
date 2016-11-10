@@ -3,6 +3,7 @@ import * as types from '../actions/actionTypes';
 const initialState = {
   taskArray: [],
   taskName: '',
+  showCompletedOnly: false
 }; 
 
 const todoReducers = (state = initialState, action) => {
@@ -27,6 +28,9 @@ const todoReducers = (state = initialState, action) => {
       var taskArray = state.taskArray.slice();
       taskArray[action.payload].isDone = !taskArray[action.payload].isDone;
       return Object.assign({}, state, { taskArray });
+    case types.SHOW_COMPLETED_ONLY:
+      var showCompletedOnly = !state.showCompletedOnly;
+      return Object.assign({}, state, { showCompletedOnly });
   }
 
   return state; 

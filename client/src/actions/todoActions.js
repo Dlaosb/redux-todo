@@ -27,3 +27,9 @@ export function markCompletedActionCreator(index) {
     payload: index
   }
 } 
+
+export function showCompletedOnlyActionCreator() {
+  return {
+    type: types.SHOW_COMPLETED_ONLY
+  }
+}

@@ -13,6 +13,7 @@ class TodoContainer extends Component {
     this.submitTask = this.submitTask.bind(this);
     this.markComplete = this.markComplete.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.toggleCompletedView = this.toggleCompletedView.bind(this);
   }
 
   inputChange(e) {
@@ -42,11 +43,14 @@ class TodoContainer extends Component {
   //   this.props.deleteTaskActionCreator(e.target.id);  // need to add an id attribute to each button in TodoList
   // }
 
+  toggleCompletedView(e) {
+    this.props.showCompletedOnlyActionCreator();
+  }
+
   render() {
-    console.log('this in render', this);
     return <div>
-      <TodoHeader inputChange={this.inputChange} submitTask={this.submitTask} />
-      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} markComplete={this.markComplete}/>
+      <TodoHeader inputChange={this.inputChange} submitTask={this.submitTask} toggleCompletedView={this.toggleCompletedView} />
+      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} markComplete={this.markComplete} showCompletedOnly={this.props.todo.showCompletedOnly}/>
     </div>
   }
 }
@@ -63,5 +67,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
 
 // move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?) => best practice?
-
-// next feature: sort completed tasks
