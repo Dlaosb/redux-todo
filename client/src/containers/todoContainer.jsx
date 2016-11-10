@@ -11,8 +11,8 @@ class TodoContainer extends Component {
     super();
     this.inputChange = this.inputChange.bind(this);
     this.submitTask = this.submitTask.bind(this);
+    this.markComplete = this.markComplete.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.submitTask = this.submitTask.bind(this);
   }
 
   inputChange(e) {
@@ -31,6 +31,10 @@ class TodoContainer extends Component {
     this.props.addTaskActionCreator(this.props.todo.taskName);
   }
 
+  markComplete(index, e) {
+    this.props.markCompletedActionCreator(index);
+  }
+
   deleteTask(index, e) {
     this.props.deleteTaskActionCreator(index);
   }
@@ -42,7 +46,7 @@ class TodoContainer extends Component {
     console.log('this in render', this);
     return <div>
       <TodoHeader inputChange={this.inputChange} submitTask={this.submitTask} />
-      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
+      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} markComplete={this.markComplete}/>
     </div>
   }
 }
@@ -53,14 +57,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(todoActionCreators, dispatch);
-};
+};  
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
 
-// update state taskName with both todo.taskName and this.refs.taskName
-// move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?)
+// move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?) => best practice?
 
-// next feature: add a submit button to add a task
 // next feature: allow the user to change a task status to 'done' (crossed out)
 // next feature: user can only remove an item if the task is done (the button only shows for completed tasks)
+// next feature: sort completed tasks

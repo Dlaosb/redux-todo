@@ -8,7 +8,12 @@ const initialState = {
 const todoReducers = (state = initialState, action) => {
   switch(action.type) {
     case types.ADD_TASK:
-      var taskArray = state.taskArray.concat(action.payload);
+      var task = {
+        taskName: action.payload,
+        isDone: false,
+        createdAt: Date()
+      };
+      var taskArray = state.taskArray.concat(task);
       var taskName = '';
       return Object.assign({}, state, { taskArray, taskName });
     case types.UPDATE_INPUT:
