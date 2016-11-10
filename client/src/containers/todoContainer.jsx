@@ -9,28 +9,31 @@ import TodoList from '../components/TodoList';
 class TodoContainer extends Component {
   constructor() {
     super();
-    this.handleInput = this.handleInput.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.keydown = this.keydown.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+    this.submitTask = this.submitTask.bind(this);
+    this.markComplete = this.markComplete.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.toggleCompletedView = this.toggleCompletedView.bind(this);
   }
 
-  handleInput(e) {
-    this.props.updateInputActionCreator(e.target.value);
-  }
-
-  addTask(e) {
-    e.preventDefault();
-
-    if (this.props.todo.taskName !== '') {
-      document.getElementById('taskName').value = '';
-      this.props.addTaskActionCreator(this.props.todo.taskName);
+  inputChange(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.target.value !== '') {
+        e.target.value = '';
+        this.props.addTaskActionCreator(this.props.todo.taskName);
+      }
+    } else {
+      this.props.updateInputActionCreator(e.target.value);
     }
   }
 
-  keydown(e) {
-    console.log('keydown');
-    // e.target.value = '';
+  submitTask() {
+    this.props.addTaskActionCreator(this.props.todo.taskName);
+  }
+
+  markComplete(index, e) {
+    this.props.markCompletedActionCreator(index);
   }
 
   deleteTask(index, e) {
@@ -40,11 +43,14 @@ class TodoContainer extends Component {
   //   this.props.deleteTaskActionCreator(e.target.id);  // need to add an id attribute to each button in TodoList
   // }
 
+  toggleCompletedView(e) {
+    this.props.showCompletedOnlyActionCreator();
+  }
+
   render() {
-    console.log('this in render', this);
     return <div>
-      <TodoHeader handleInput={this.handleInput} addTask={this.addTask} keydown={this.keydown} />
-      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} />
+      <TodoHeader inputChange={this.inputChange} submitTask={this.submitTask} toggleCompletedView={this.toggleCompletedView} />
+      <TodoList taskArray={this.props.todo.taskArray} deleteTask={this.deleteTask} markComplete={this.markComplete} showCompletedOnly={this.props.todo.showCompletedOnly}/>
     </div>
   }
 }
@@ -55,13 +61,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(todoActionCreators, dispatch);
-};
+};  
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
 
 
-// modify input event handlers to use onKeyDown; keydown checks key='Enter' and calls methods to call the actionCreators
-// proper way to clear the input box? either access the DOM element by id, or use e.target.value on a keydown event
-// line 46 -> proper way to pass down pieces of state (taskArray)?
-// line 27 -> proper way to pass the taskName? (use the state value or grab the value of the input DOM element)
-// modify todoReducers to use object destructuring instead of Object.assign, and use a single line of code for return statements; best practice?
+// move the execution add AddTodo and UpdateInput actions to the AddTodo component? (move the addTaskActionCreator to AddTodo?) => best practice?
