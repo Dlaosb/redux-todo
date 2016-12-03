@@ -23,8 +23,8 @@ module.exports = {
   		loaders: ['babel-loader']
   	}],
   },
-  watch: true, //what does watch do? 
-  devTool: 'source-map', //what does devTool sourcemap do?
+  watch: true, 
+  devTool: 'source-map',
   devServer: {
   	contentBase: PATHS.dist,
   },
